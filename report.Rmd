@@ -1,0 +1,29 @@
+---
+title: "VRC01 Neutralization Report"
+author: "Youwei Hu"
+output: html_document
+date: 'r Sys.Date()'
+---
+```{r, read-config}
+WHICH_CONFIG <- Sys.getenv("WHICH_CONFIG")
+config_list <- config::get(
+  config = WHICH_CONFIG
+)
+# WHICH_CONFIG <- "default"
+```
+
+
+```{r, set-chunk-opt,echo=FALSE,eval=config_list$production}
+library(knitr)
+#opts_chunk$set: set options for all the entire document (set the default)
+opts_chunk$set(
+  echo=FALSE, warning=FALSE, message=FALSE
+  #if want to change default in specific chunk, can still do echo=TRUE
+)
+```
+
+
+```{r, load-data}
+here::i_am("report.Rmd")
+data <- read.csv(here::here("data", "f75_interim.csv"), header = TRUE)
+```
