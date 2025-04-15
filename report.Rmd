@@ -27,3 +27,19 @@ opts_chunk$set(
 here::i_am("report.Rmd")
 data <- read.csv(here::here("data", "f75_interim.csv"), header = TRUE)
 ```
+
+
+
+```{r load-summary_table}
+# Load summary table and figures from 03_trends.R
+summary_table <- readRDS(here::here("outputs", "table3_progression.rds"))
+knitr::kable(summary_table, caption = "Table 3: Summary of Nutritional Progression Over Time")
+```
+
+```{r load-figureE}
+knitr::include_graphics(here::here("outputs", "figureE_trends.png"))
+```
+
+```{r load-figureF}
+knitr::include_graphics(here::here("outputs", "figureF_gain_vs_time.png"))
+```
