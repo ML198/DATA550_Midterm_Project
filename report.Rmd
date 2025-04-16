@@ -4,6 +4,7 @@ author: "Youwei Hu"
 output: html_document
 date: 'r Sys.Date()'
 ---
+
 ```{r, read-config}
 WHICH_CONFIG <- Sys.getenv("WHICH_CONFIG")
 config_list <- config::get(
@@ -11,7 +12,6 @@ config_list <- config::get(
 )
 # WHICH_CONFIG <- "default"
 ```
-
 
 ```{r, set-chunk-opt,echo=FALSE,eval=config_list$production}
 library(knitr)
@@ -22,8 +22,43 @@ opts_chunk$set(
 )
 ```
 
-
 ```{r, load-data}
 here::i_am("report.Rmd")
 data <- read.csv(here::here("data", "f75_interim.csv"), header = TRUE)
 ```
+
+```{r,table1}
+table1 <- readRDS(
+  here::here("output/table1_demographics.rds")
+)
+table1
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r,figureA}
+#| fig.align = "center"
+knitr::include_graphics(here::here("output", "figureA_boxplots.png"))
+```
+
+
+
+
+
+
+```{r,figureB}
+#| fig.align = "center"
+knitr::include_graphics(here::here("output", "figureB_bar.png"))
+```
+
