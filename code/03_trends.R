@@ -29,8 +29,7 @@ summary_table <- df_analysis %>%
   pivot_longer(cols = everything(), names_to = c("Variable", "Statistic"), names_pattern = "(.*)_(.*)") %>%
   pivot_wider(names_from = Variable, values_from = value)
 
-saveRDS(summary_table, here("outputs", "table3_progression.rds"))
-
+saveRDS(summary_table, here::here("output", "table3_progression.rds"))
 # Prepare long format table for plotting 
 df_long <- df_analysis %>%
   select(subjid, muac, weight, muac1, weight1, muac2, weight2) %>%
@@ -68,7 +67,7 @@ p_line <- ggplot(agg_summary %>% filter(variable %in% c("MUAC", "Weight")),
   ) +
   theme_minimal()
 
-ggsave(here("outputs", "figureE_trends.png"), plot = p_line, width = 7, height = 5, dpi = 300, bg = "white")
+ggsave(here("output", "figureE_trends.png"), plot = p_line, width = 7, height = 5, dpi = 300, bg = "white")
 
 # Scatterplot: Rate of Weight Gain vs. Days to Stabilization
 p_scatter <- ggplot(df_analysis, aes(x = days_stable, y = rate_weight_gain)) +
@@ -81,4 +80,4 @@ p_scatter <- ggplot(df_analysis, aes(x = days_stable, y = rate_weight_gain)) +
   ) +
   theme_minimal()
 
-ggsave(here("outputs", "figureF_gain_vs_time.png"), plot = p_scatter, width = 7, height = 5, dpi = 300, bg = "white")
+ggsave(here("output", "figureF_gain_vs_time.png"), plot = p_scatter, width = 7, height = 5, dpi = 300, bg = "white")
