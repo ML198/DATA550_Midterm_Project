@@ -30,9 +30,9 @@ Using the first 6 months of data, our team will perform the following structured
 
 -   Visualizations:
 
-`figureC_discharge.png` -- Histogram of discharge vs withdrawal/death
+`figureC_daysstable.png` -- Boxplot of days to stabilization by treatment group
 
-`figureD_daysstable.png` -- Boxplot of days to stabilization by treatment group
+`figureD_discharge.png` -- Bar chart of discharge vs withdrawal/death
 
 🔹 3. Nutritional Progress & Trends Over Time We will analyze the change in anthropometric indicators (MUAC, weight, height) from admission to discharge, and compute the rate of weight gain. These trends will help us assess recovery patterns.
 

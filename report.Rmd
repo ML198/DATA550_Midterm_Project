@@ -2,23 +2,15 @@
 title: "Midterm Report"
 author: "Mingrui Li, Siyu Zhai, Youwei Hu, Yuchi Liu"
 output: html_document
-date: 'r Sys.Date()'
 ---
 
-```{r, read-config}
-WHICH_CONFIG <- Sys.getenv("WHICH_CONFIG")
-config_list <- config::get(
-  config = WHICH_CONFIG
-)
-# WHICH_CONFIG <- "default"
-```
+This midterm report summarizes the preliminary findings from a randomized clinical trial evaluating the impact of a modified F75 formula (mF75) compared to the standard F75 in children with severe acute malnutrition. The analysis includes 513 enrolled children, with 258 receiving the modified formula and 255 receiving the standard formula.
 
-```{r, set-chunk-opt,echo=FALSE,eval=config_list$production}
+```{r, set-chunk-opt, echo=FALSE}
 library(knitr)
-#opts_chunk$set: set options for all the entire document (set the default)
 opts_chunk$set(
-  echo=FALSE, warning=FALSE, message=FALSE
-  #if want to change default in specific chunk, can still do echo=TRUE
+  echo = FALSE, warning = FALSE, message = FALSE,
+  fig.align = "center"
 )
 ```
 
@@ -27,35 +19,88 @@ here::i_am("report.Rmd")
 data <- read.csv(here::here("data", "f75_interim.csv"), header = TRUE)
 ```
 
-```{r,table1}
-table1 <- readRDS(
-  here::here("output/table1_demographics.rds")
-)
-table1
+# Patient Characteristics
+
+```{r, table1, results='asis'}
+library(gtsummary)
+library(gt)
+table1 <- readRDS(here::here("output/table1_demographics.rds"))
+gtsummary::as_gt(table1)
+table1 %>%
+  modify_caption("**Table 1. Baseline Demographic and Clinical Characteristics**") %>%
+  as_gt()
 ```
 
+This table provides a detailed breakdown of baseline variables across the two treatment arms. The p-values indicate no statistically significant differences between groups across most characteristics, supporting good baseline comparability.
 
-```{r,figureA}
-#| fig.align = "center"
+```{r, figureA, fig.cap='Figure A: MUAC and Weight by Sex and Treatment Arm'}
 knitr::include_graphics(here::here("output", "figureA_boxplots.png"))
 ```
 
-```{r,figureB}
-#| fig.align = "center"
+These boxplots show MUAC and weight distributions by sex and treatment arm. Both are similar across groups with slight variations, suggesting balanced baseline nutritional status.
+
+```{r, figureB, fig.cap='Figure B: Symptom Frequencies by Study Arm'}
 knitr::include_graphics(here::here("output", "figureB_bar.png"))
 ```
 
+This bar plot shows symptom frequency by treatment group, confirming minimal differences and well-balanced baseline severity indicators.
 
-```{r load-summary_table}
-summary_table <- readRDS(here::here("output", "table3_progression.rds"))
-knitr::kable(summary_table,caption = "Table 3: Summary of Nutritional Progression Over Time")
+```{r, table2, results='asis'}
+
+library(gtsummary)
+library(gt)
+
+table2 <- readRDS(here::here("output/table2_outcome.rds"))
+
+table2 %>%
+  modify_caption("**Table 2. Outcome Measures: Days to Stabilization and Discharge Status**") %>%
+  as_gt()
+
 ```
 
-```{r load-figureE}
+This table shows similar discharge rates across groups. Mean days to stabilization were slightly higher in the mF75 group, though variability is high.
+
+```{r, figureC, fig.cap='Figure C: Days to Stabilization by Treatment Group'}
+knitr::include_graphics(here::here("output", "figureC_daysstable.png"))
+```
+
+The boxplot shows similar distributions in stabilization time, supporting findings from Table 2.
+
+```{r, figureD, fig.cap='Figure D: Discharged vs. Withdrawn/Dead'}
+knitr::include_graphics(here::here("output", "figureD_discharge.png"))
+```
+
+This bar chart shows most children were discharged successfully, indicating favorable short-term outcomes.
+
+# Nutritional Progression
+
+Table 3 presents summary statistics for key nutritional progression indicators:
+
+- Median stabilization time: 3 days; Mean = 3.64 (SD = 2.53)
+- Mean MUAC change = +0.19 cm; Max = +4.1 cm
+- Mean weight change = +0.09 kg
+- Mean height change = +0.07 cm
+- Weight gain rate = 0.046 g/kg/day (Range: -2.2 to 1.6)
+
+```{r, summary_table, results='asis'}
+summary_table <- readRDS(here::here("output", "table3_progression.rds"))
+knitr::kable(summary_table, caption = "Table 3: Summary of Nutritional Progression Over Time")
+```
+
+These results show general improvement in nutrition during treatment, though with considerable inter-patient variability.
+
+```{r, figureE, fig.cap='Figure E: Mean MUAC and Weight Over Time'}
 knitr::include_graphics(here::here("output", "figureE_trends.png"))
 ```
 
-```{r load-figureF}
+This line plot shows a gradual increase in MUAC and weight from baseline to discharge.
+
+```{r, figureF, fig.cap='Figure F: Rate of Weight Gain vs. Days to Stabilization'}
 knitr::include_graphics(here::here("output", "figureF_gain_vs_time.png"))
 ```
 
+This scatter plot with regression suggests faster stabilization is associated with higher weight gain rates, albeit weakly.
+
+# Conclusion
+
+This interim analysis shows no significant baseline differences between treatment arms. Outcome and progression indicators suggest modest but variable nutritional improvements. Continued monitoring and subgroup analysis are recommended to assess long-term efficacy of the modified formula.
