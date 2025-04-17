@@ -35,30 +35,28 @@ table1
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 ```{r,figureA}
 #| fig.align = "center"
 knitr::include_graphics(here::here("output", "figureA_boxplots.png"))
 ```
 
-
-
-
-
-
 ```{r,figureB}
 #| fig.align = "center"
 knitr::include_graphics(here::here("output", "figureB_bar.png"))
+```
+
+
+```{r load-summary_table}
+summary_table <- readRDS(here::here("output", "table3_progression.rds"))
+knitr::kable(summary_table,caption = "Table 3: Summary of Nutritional Progression Over Time")
+
+```
+
+```{r load-figureE}
+knitr::include_graphics(here::here("output", "figureE_trends.png"))
+```
+
+```{r load-figureF}
+knitr::include_graphics(here::here("output", "figureF_gain_vs_time.png"))
 ```
 
