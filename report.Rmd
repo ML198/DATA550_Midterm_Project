@@ -27,3 +27,24 @@ opts_chunk$set(
 here::i_am("report.Rmd")
 data <- read.csv(here::here("data", "f75_interim.csv"), header = TRUE)
 ```
+
+
+
+```{r,table2}
+table2 <- readRDS(
+  here::here("output/table2_outcome.rds")
+)
+table2
+```
+
+
+```{r,figureC}
+#| fig.align = "center"
+knitr::include_graphics(here::here("output", "figureC_daysstable.png"))
+```
+
+
+```{r,figureD}
+#| fig.align = "center"
+knitr::include_graphics(here::here("output", "figureD_discharge.png"))
+```
