@@ -3,6 +3,7 @@ title: "Midterm Report"
 author: "Mingrui Li, Siyu Zhai, Youwei Hu, Yuchi Liu"
 output: html_document
 ---
+# Introduction
 
 This midterm report summarizes the preliminary findings from a randomized clinical trial evaluating the impact of a modified F75 formula (mF75) compared to the standard F75 in children with severe acute malnutrition. The analysis includes 513 enrolled children, with 258 receiving the modified formula and 255 receiving the standard formula.
 
@@ -20,31 +21,35 @@ data <- read.csv(here::here("data", "f75_interim.csv"), header = TRUE)
 ```
 
 # Patient Characteristics
+## Demographics and Clinical Conditions
+At baseline, demographic and clinical characteristics were well-balanced between treatment arms. The median age across all participants was 16 months, with interquartile ranges similar across groups. Median weight and height were also comparable, with the intervention group weighing 6.45 kg and the control group 6.55 kg. The distribution of mid-upper arm circumference (MUAC), sex, breastfeeding status, and clinical features such as kwashiorkor, oedema, shock, diarrhoea, malaria, and severe pneumonia showed no statistically significant differences between the two groups (all p-values > 0.05), indicating successful randomization.
 
 ```{r, table1, results='asis'}
 library(gtsummary)
 library(gt)
 table1 <- readRDS(here::here("output/table1_demographics.rds"))
-gtsummary::as_gt(table1)
 table1 %>%
   modify_caption("**Table 1. Baseline Demographic and Clinical Characteristics**") %>%
   as_gt()
 ```
-
-This table provides a detailed breakdown of baseline variables across the two treatment arms. The p-values indicate no statistically significant differences between groups across most characteristics, supporting good baseline comparability.
+## Visual Summaries of Baseline Comparability
+These boxplots visualize the distribution of MUAC and weight, stratified by sex and treatment arm. Both MUAC and weight appear to be similar across groups and sexes, with slight variations. The overlap in medians and interquartile ranges suggests no substantial sex-specific treatment effect differences at baseline.
 
 ```{r, figureA, fig.cap='Figure A: MUAC and Weight by Sex and Treatment Arm'}
 knitr::include_graphics(here::here("output", "figureA_boxplots.png"))
 ```
 
-These boxplots show MUAC and weight distributions by sex and treatment arm. Both are similar across groups with slight variations, suggesting balanced baseline nutritional status.
+
+The bar plot shows the distribution of key clinical symptoms (e.g., diarrhoea, oedema, malaria, shock) by treatment arm. There are minimal differences in symptom frequencies between groups, further confirming balance at baseline. Stacked colors indicate the severity of symptoms (e.g., oedema grading), which also appear well-matched.
 
 ```{r, figureB, fig.cap='Figure B: Symptom Frequencies by Study Arm'}
 knitr::include_graphics(here::here("output", "figureB_bar.png"))
 ```
 
-This bar plot shows symptom frequency by treatment group, confirming minimal differences and well-balanced baseline severity indicators.
+# Outcome Measures
+## Days to Stabilization and Discharge Status
 
+This outcome table2 indicates that mean days to stabilization were slightly higher in the Modified F75 group (131 vs. 105), though variability is high (as shown by SD). The discharge rate is similar across groups (77% overall), suggesting comparable clinical trajectories regardless of the F75 formulation.
 ```{r, table2, results='asis'}
 
 library(gtsummary)
@@ -58,21 +63,25 @@ table2 %>%
 
 ```
 
-This table shows similar discharge rates across groups. Mean days to stabilization were slightly higher in the mF75 group, though variability is high.
+Figure C shows no visible difference in the median or spread of stabilization time between arms. The similarity in box heights, medians, and presence of outliers supports the previous table’s observation of similar stabilization timelines. Visual evidence aligns with a non-significant difference.
+
+### Figures on Stabilization and Outcome
 
 ```{r, figureC, fig.cap='Figure C: Days to Stabilization by Treatment Group'}
 knitr::include_graphics(here::here("output", "figureC_daysstable.png"))
 ```
 
-The boxplot shows similar distributions in stabilization time, supporting findings from Table 2.
+Figure D clearly indicates that the majority of patients were discharged across both treatment arms, with few withdrawn or deceased. This suggests generally positive outcomes in the study and may hint at good clinical management and intervention safety.
+
 
 ```{r, figureD, fig.cap='Figure D: Discharged vs. Withdrawn/Dead'}
 knitr::include_graphics(here::here("output", "figureD_discharge.png"))
 ```
 
-This bar chart shows most children were discharged successfully, indicating favorable short-term outcomes.
+
 
 # Nutritional Progression
+## Summary Statistics
 
 Table 3 presents summary statistics for key nutritional progression indicators:
 
@@ -87,19 +96,20 @@ summary_table <- readRDS(here::here("output", "table3_progression.rds"))
 knitr::kable(summary_table, caption = "Table 3: Summary of Nutritional Progression Over Time")
 ```
 
-These results show general improvement in nutrition during treatment, though with considerable inter-patient variability.
 
+This longitudinal plot illustrates positive trends in MUAC and weight from baseline to discharge. The gradual increase reflects nutritional recovery. MUAC appears to improve more consistently than weight, possibly due to fluid retention effects in malnutrition recovery.
+
+## Visualization of Nutritional Trends
 ```{r, figureE, fig.cap='Figure E: Mean MUAC and Weight Over Time'}
 knitr::include_graphics(here::here("output", "figureE_trends.png"))
 ```
 
-This line plot shows a gradual increase in MUAC and weight from baseline to discharge.
+This scatter plot with linear regression suggests a slight negative correlation between rate of weight gain and time to stabilization — children who stabilized faster tended to gain weight more rapidly. While the effect is subtle, it supports the importance of early clinical improvement for nutritional recovery.
+
 
 ```{r, figureF, fig.cap='Figure F: Rate of Weight Gain vs. Days to Stabilization'}
 knitr::include_graphics(here::here("output", "figureF_gain_vs_time.png"))
 ```
-
-This scatter plot with regression suggests faster stabilization is associated with higher weight gain rates, albeit weakly.
 
 # Conclusion
 
