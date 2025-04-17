@@ -1,6 +1,6 @@
 ---
-title: "VRC01 Neutralization Report"
-author: "Youwei Hu"
+title: "Midterm Report"
+author: "Mingrui Li, Siyu Zhai, Youwei Hu, Yuchi Liu"
 output: html_document
 date: 'r Sys.Date()'
 ---
@@ -49,7 +49,6 @@ knitr::include_graphics(here::here("output", "figureB_bar.png"))
 ```{r load-summary_table}
 summary_table <- readRDS(here::here("output", "table3_progression.rds"))
 knitr::kable(summary_table,caption = "Table 3: Summary of Nutritional Progression Over Time")
-
 ```
 
 ```{r load-figureE}
