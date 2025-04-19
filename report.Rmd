@@ -1,13 +1,9 @@
 ---
 title: "Midterm Report"
-author: "Mingrui Li, Siyu Zhai, Youwei Hu, Yuchi Liu"
+author: "Mingrui Li, Siyu Zhai, Youwei Hu and Yuchi Liu"
 output: html_document
 ---
-# Introduction
-
-This midterm report summarizes the preliminary findings from a randomized clinical trial evaluating the impact of a modified F75 formula (mF75) compared to the standard F75 in children with severe acute malnutrition. The analysis includes 513 enrolled children, with 258 receiving the modified formula and 255 receiving the standard formula.
-
-```{r, set-chunk-opt, echo=FALSE}
+```{r, set-chunk-opt}
 library(knitr)
 opts_chunk$set(
   echo = FALSE, warning = FALSE, message = FALSE,
@@ -15,9 +11,33 @@ opts_chunk$set(
 )
 ```
 
+
+```{r, read-config}
+library(yaml)
+library(here)
+here::i_am("report.Rmd")
+config <- yaml::read_yaml(here::here("config.yml"))
+
+# Extract variables
+input_data <- config$input_data
+filter_groups <- config$filter_groups
+baseline_vars <- config$baseline_vars
+outcome_vars <- config$outcome_vars
+nutritional_vars <- config$nutritional_vars
+output_dir <- config$output_dir
+```
+
+# Introduction
+
+This midterm report summarizes the preliminary findings from a randomized clinical trial evaluating the impact of a modified F75 formula (mF75) compared to the standard F75 in children with severe acute malnutrition. The analysis includes 513 enrolled children, with 258 receiving the modified formula and 255 receiving the standard formula.
+
+
+
 ```{r, load-data}
 here::i_am("report.Rmd")
-data <- read.csv(here::here("data", "f75_interim.csv"), header = TRUE)
+data <- read.csv(here::here(input_data), header = TRUE)
+#we can also study on particular variable
+#data_mauc <- subset(data, muac %in% filter_groups)
 ```
 
 # Patient Characteristics
@@ -36,14 +56,14 @@ table1 %>%
 These boxplots visualize the distribution of MUAC and weight, stratified by sex and treatment arm. Both MUAC and weight appear to be similar across groups and sexes, with slight variations. The overlap in medians and interquartile ranges suggests no substantial sex-specific treatment effect differences at baseline.
 
 ```{r, figureA, fig.cap='Figure A: MUAC and Weight by Sex and Treatment Arm'}
-knitr::include_graphics(here::here("output", "figureA_boxplots.png"))
+knitr::include_graphics(here::here(output_dir, config$figures[[1]]))
 ```
 
 
 The bar plot shows the distribution of key clinical symptoms (e.g., diarrhoea, oedema, malaria, shock) by treatment arm. There are minimal differences in symptom frequencies between groups, further confirming balance at baseline. Stacked colors indicate the severity of symptoms (e.g., oedema grading), which also appear well-matched.
 
 ```{r, figureB, fig.cap='Figure B: Symptom Frequencies by Study Arm'}
-knitr::include_graphics(here::here("output", "figureB_bar.png"))
+knitr::include_graphics(here::here(output_dir, config$figures[[2]]))
 ```
 
 # Outcome Measures
@@ -68,14 +88,14 @@ Figure C shows no visible difference in the median or spread of stabilization ti
 ### Figures on Stabilization and Outcome
 
 ```{r, figureC, fig.cap='Figure C: Days to Stabilization by Treatment Group'}
-knitr::include_graphics(here::here("output", "figureC_daysstable.png"))
+knitr::include_graphics(here::here(output_dir, config$figures[[3]]))
 ```
 
 Figure D clearly indicates that the majority of patients were discharged across both treatment arms, with few withdrawn or deceased. This suggests generally positive outcomes in the study and may hint at good clinical management and intervention safety.
 
 
 ```{r, figureD, fig.cap='Figure D: Discharged vs. Withdrawn/Dead'}
-knitr::include_graphics(here::here("output", "figureD_discharge.png"))
+knitr::include_graphics(here::here(output_dir, config$figures[[4]]))
 ```
 
 
@@ -101,14 +121,14 @@ This longitudinal plot illustrates positive trends in MUAC and weight from basel
 
 ## Visualization of Nutritional Trends
 ```{r, figureE, fig.cap='Figure E: Mean MUAC and Weight Over Time'}
-knitr::include_graphics(here::here("output", "figureE_trends.png"))
+knitr::include_graphics(here::here(output_dir, config$figures[[5]]))
 ```
 
 This scatter plot with linear regression suggests a slight negative correlation between rate of weight gain and time to stabilization — children who stabilized faster tended to gain weight more rapidly. While the effect is subtle, it supports the importance of early clinical improvement for nutritional recovery.
 
 
 ```{r, figureF, fig.cap='Figure F: Rate of Weight Gain vs. Days to Stabilization'}
-knitr::include_graphics(here::here("output", "figureF_gain_vs_time.png"))
+knitr::include_graphics(here::here(output_dir, config$figures[[6]]))
 ```
 
 # Conclusion

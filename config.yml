@@ -1,0 +1,35 @@
+input_data: "data/f75_interim.csv"
+filter_groups: ["Modified F75", "Standard F75"]
+baseline_vars:
+  - age_months
+  - weight
+  - muac
+  - height
+  - sex
+  - breastfeeding
+  - kwashiorkor
+  - oedema
+  - shock
+  - diarrhoea
+  - malaria
+  - pneumonia
+
+outcome_vars:
+  - days_stable
+  - discharge_status
+
+nutritional_vars:
+  - change_muac
+  - change_weight
+  - change_height
+  - rate_weight_gain
+
+# Output paths
+output_dir: "output"
+figures:
+  - figureA_boxplots.png
+  - figureB_bar.png
+  - figureC_daysstable.png
+  - figureD_discharge.png
+  - figureE_trends.png
+  - figureF_gain_vs_time.png

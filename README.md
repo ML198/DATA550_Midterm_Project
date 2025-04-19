@@ -55,7 +55,7 @@ Generation The project is structured for full reproducibility:
 2.  Automation is supported via Makefile
 
 ## 📜 Report
-Final integrated report will be rendered using R Markdown: `midterm_report.Rmd` 
+Final integrated report will be rendered using R Markdown: `report.Rmd` 
 
 - Summarize baseline demographics and clinical conditions of enrolled children by treatment group (F75 vs. mF75).
 
