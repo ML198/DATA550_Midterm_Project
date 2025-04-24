@@ -78,8 +78,11 @@ library(gt)
 table2 <- readRDS(here::here("output/table2_outcome.rds"))
 
 table2 %>%
-  modify_caption("**Table 2. Outcome Measures: Days to Stabilization and Discharge Status**") %>%
-  as_gt()
+  as_gt() %>%
+  gt::tab_header(
+    title = md("**Table 2. Outcome Measures: Days to Stabilization and Discharge Status**")
+  )
+
 
 ```
 
